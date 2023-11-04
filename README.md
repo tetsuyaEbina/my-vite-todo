@@ -10,3 +10,10 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 - このシステムは、[Vue.js 超入門 3.2 対応](https://nextpublishing.jp/book/16133.html)を参考にしています。<br>
 - これに追加して、自分の勉強したことを、随時 MERGE していきます
+
+### できるようになりたいこと
+
+- 基礎的な Vue.js の概念を学ぶ<br>
+- DB とやり取りし、CRUD を実装できるようにする
+- API 開発に関して、何かしらの知見を得られるようにする
+- laravel + Nuxt.js に着手できるようにする
