@@ -5,6 +5,24 @@ const todoListRef = ref([]);
 const ls = localStorage.todoList;
 todoListRef.value = ls ? JSON.parse(ls) : [];
 
+const isEditRef = ref(false);
+let editId = -1;
+const editTodo = () => {
+    // 対象となるTODOを取得
+    const todo = todoListRef.value.find((todo) => todo.id === editId );
+
+    // TODOリストから編集対象データのINDEXを取得する
+    const index = todoListRef.value.findIndex((todo) => todo.id === editId );
+
+    todo.task = todoRef.value;
+    todoListRef.value.splice(index, 1, todo);
+
+    localStorage.todoList = JSON.stringify(todoListRef.value);
+    isEditRef.value = false;
+    editId = -1;
+    todoRef.value = '';
+};
+
 const addTodo = () => {
     // localStorageに.をつけて任意の変数名を設定することで、値を登録することができる
     // TODO: DBと連携できるようにする
@@ -16,6 +34,26 @@ const addTodo = () => {
     // 登録後は、入力欄を空にする
     todoRef.value = '';
 }
+
+const showTodo = (id) => {
+    // listの中身から、IDが一致した時点で値を渡す
+    // findは、callback関数
+    const todo = todoListRef.value.find((todo) => todo.id === id);
+    todoRef.value = todo.task;
+    isEditRef.value = true;
+    editId = id;
+};
+
+const deleteTodo = (id) => {
+    // 対象となるTODOを取得
+    const todo = todoListRef.value.find((todo) => todo.id === editId);
+
+    // TODOリストから編集対象データのINDEXを取得する
+    const index = todoListRef.value.findIndex((todo) => todo.id === editId);
+
+    todoListRef.value.splice(index, 1);
+    localStorage.todoList = JSON.stringify(todoListRef.value);
+};
 </script>
 
 <template>
@@ -25,7 +63,8 @@ const addTodo = () => {
           class="todo_input" 
           v-model="todoRef"
           placeholder="TODOを入力" />
-        <button class="btn" v-on:click="addTodo">追加</button>
+        <button class="btn green" v-on:click="editTodo" v-if="isEditRef">変更</button>
+        <button class="btn" v-on:click="addTodo" v-else>追加</button>
     </div>
 
     <div class="box_list">
@@ -34,8 +73,8 @@ const addTodo = () => {
                 <input type="checkbox" class="check" /><label>{{todo.task}}</label>
             </div>
             <div class="btns">
-                <button class="btn green">編</button>
-                <button class="btn pink">削</button>
+                <button class="btn green" v-on:click="showTodo(todo.id)">編</button>
+                <button class="btn pink" @click="deleteTodo(todo.id)">削</button>
             </div>
         </div>
     </div>
