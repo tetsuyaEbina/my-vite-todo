@@ -8,5 +8,5 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 ## 引用元
 
-このシステムは、- [Vue.js 超入門 3.2 対応](https://nextpublishing.jp/book/16133.html)を参考にしています。<br>
-これに追加して、自分の勉強したことを MERGE していきます
+- このシステムは、[Vue.js 超入門 3.2 対応](https://nextpublishing.jp/book/16133.html)を参考にしています。<br>
+- これに追加して、自分の勉強したことを、随時 MERGE していきます
