@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 import { useTodoList } from '/src/composables/useTodoList.js';
+import  BaseButton  from '/src/components/BaseButton.vue';
 
 const todoRef = ref('');
 const isEditRef = ref(false);
-const { todoListRef, add, show, edit, del, check } = useTodoList();
+const { todoListRef, add, show, edit, del, check, countFin } = useTodoList();
 
 const editTodo = () => {
     edit(todoRef.value);
@@ -40,8 +41,8 @@ const changeCheck = (id) => {
           class="todo_input" 
           v-model="todoRef"
           placeholder="TODOを入力" />
-        <button class="btn green" v-on:click="editTodo" v-if="isEditRef">変更</button>
-        <button class="btn" v-on:click="addTodo" v-else>追加</button>
+        <BaseButton color="green" v-on:click="editTodo" v-if="isEditRef">変更</BaseButton>
+        <BaseButton color="blue" v-on:click="addTodo" v-else>追加</BaseButton>
     </div>
 
     <div class="box_list">
@@ -50,10 +51,15 @@ const changeCheck = (id) => {
                 <input type="checkbox" class="check" @change="changeCheck(todo.id)" v-bind:checked="todo.checked"/><label>{{todo.task}}</label>
             </div>
             <div class="btns">
-                <button class="btn green" v-on:click="showTodo(todo.id)">編</button>
-                <button class="btn pink" @click="deleteTodo(todo.id)">削</button>
+                <BaseButton color="green" v-on:click="showTodo(todo.id)">編</BaseButton>
+                <BaseButton color="pink" @click="deleteTodo(todo.id)">削</BaseButton>
             </div>
         </div>
+    </div>
+
+    <div class="finCount">
+        <span>完了-->{{ countFin }}、</span>
+        <span>未完了-->{{ todoListRef.length - countFin }}</span>
     </div>
 </template>
 
@@ -125,4 +131,8 @@ const changeCheck = (id) => {
     color: #777;
 }
 
+.finCount{
+    margin-top: 8px;
+    font-size: 0.8em;
+}
 </style>

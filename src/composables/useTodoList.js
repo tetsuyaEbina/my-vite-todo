@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 // 外部から利用できるようにexportする
 export const useTodoList = () =>{
@@ -66,7 +66,12 @@ export const useTodoList = () =>{
         todo.checked = !todo.checked;
         todoListRef.value.splice(index, 1, todo);
         localStorage.todoList = JSON.stringify(todoListRef.value);
-    }
+    };
 
-    return { todoListRef, add, show, edit, del, check };
+    const countFin = computed(() => {
+        const finArr = todoListRef.value.filter((todo) => todo.checked === true);
+        return finArr.length;
+    });
+
+    return { todoListRef, add, show, edit, del, check, countFin };
 }
