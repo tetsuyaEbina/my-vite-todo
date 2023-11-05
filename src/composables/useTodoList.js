@@ -16,7 +16,7 @@ export const useTodoList = () =>{
             return alert('文字を入力してください。');
         }
         const id = new Date().getTime();
-        todoListRef.value.push({ id: id, task: task });
+        todoListRef.value.push({ id: id, task: task, checked: false });
         localStorage.todoList = JSON.stringify(todoListRef.value);
     };
 
@@ -62,6 +62,7 @@ export const useTodoList = () =>{
     const check = (id) => {
         const todo = findById(id);
         const index = findIndexById(id);
+        // true,falseを変換する
         todo.checked = !todo.checked;
         todoListRef.value.splice(index, 1, todo);
         localStorage.todoList = JSON.stringify(todoListRef.value);
