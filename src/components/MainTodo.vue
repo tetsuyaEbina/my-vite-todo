@@ -1,11 +1,17 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useTodoList } from '/src/composables/useTodoList.js';
 import  BaseButton  from '/src/components/BaseButton.vue';
 
 const todoRef = ref('');
 const isEditRef = ref(false);
 const { todoListRef, add, show, edit, del, check, countFin } = useTodoList();
+
+// 入力値を取得
+onMounted(() => {
+    const inpMount = document.getElementById('inp').value;
+    console.log(inpMount);
+});
 
 const editTodo = () => {
     edit(todoRef.value);
@@ -37,6 +43,7 @@ const changeCheck = (id) => {
 <template>
     <div class="box_input">
         <input 
+          id="inp" 
           type="text" 
           class="todo_input" 
           v-model="todoRef"
