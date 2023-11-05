@@ -13,7 +13,13 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 ### できるようになりたいこと
 
-- 基礎的な Vue.js の概念を学ぶ<br>
+- 基礎的な Vue.js の概念を学ぶ
 - DB とやり取りし、CRUD を実装できるようにする
 - API 開発に関して、何かしらの知見を得られるようにする
 - laravel + Nuxt.js に着手できるようにする
+
+### その他留意点
+
+- 今回はパッケージマネージャーとして、yarn を用いた
+- yarn dev で localhost で確認できる
+- vercel 公開済み
