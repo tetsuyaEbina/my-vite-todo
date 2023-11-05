@@ -1,58 +1,35 @@
 <script setup>
 import { ref } from 'vue';
+import { useTodoList } from '/src/composables/useTodoList.js';
+
 const todoRef = ref('');
-const todoListRef = ref([]);
-const ls = localStorage.todoList;
-todoListRef.value = ls ? JSON.parse(ls) : [];
-
 const isEditRef = ref(false);
-let editId = -1;
+const { todoListRef, add, show, edit, del, check } = useTodoList();
+
 const editTodo = () => {
-    // 対象となるTODOを取得
-    const todo = todoListRef.value.find((todo) => todo.id === editId );
-
-    // TODOリストから編集対象データのINDEXを取得する
-    const index = todoListRef.value.findIndex((todo) => todo.id === editId );
-
-    todo.task = todoRef.value;
-    todoListRef.value.splice(index, 1, todo);
-
-    localStorage.todoList = JSON.stringify(todoListRef.value);
+    edit(todoRef.value);
     isEditRef.value = false;
-    editId = -1;
     todoRef.value = '';
 };
 
 const addTodo = () => {
-    // localStorageに.をつけて任意の変数名を設定することで、値を登録することができる
-    // TODO: DBと連携できるようにする
-    // IDを簡易的にm秒で管理
-    const id = new Date().getTime();
-    todoListRef.value.push({ id: id, task: todoRef.value })
-    localStorage.todoList = JSON.stringify(todoListRef.value)
-
+    add(todoRef.value);
     // 登録後は、入力欄を空にする
     todoRef.value = '';
 }
 
 const showTodo = (id) => {
-    // listの中身から、IDが一致した時点で値を渡す
-    // findは、callback関数
-    const todo = todoListRef.value.find((todo) => todo.id === id);
-    todoRef.value = todo.task;
+    todoRef.value = show(id);
     isEditRef.value = true;
-    editId = id;
 };
 
 const deleteTodo = (id) => {
-    // 対象となるTODOを取得
-    const todo = todoListRef.value.find((todo) => todo.id === editId);
-
-    // TODOリストから編集対象データのINDEXを取得する
-    const index = todoListRef.value.findIndex((todo) => todo.id === editId);
-
-    todoListRef.value.splice(index, 1);
+    del(id);
     localStorage.todoList = JSON.stringify(todoListRef.value);
+};
+
+const changeCheck = (id) => {
+    check(id);
 };
 </script>
 
