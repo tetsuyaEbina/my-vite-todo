@@ -12,6 +12,9 @@ export const useTodoList = () =>{
         // localStorageに.をつけて任意の変数名を設定することで、値を登録することができる
         // TODO: DBと連携できるようにする
         // IDを簡易的にm秒で管理
+        if(task === null || task === ''){
+            return alert('文字を入力してください。');
+        }
         const id = new Date().getTime();
         todoListRef.value.push({ id: id, task: task });
         localStorage.todoList = JSON.stringify(todoListRef.value);
