@@ -4,6 +4,7 @@ import Index from '/src/pages/Index.vue';
 // 遅延ローディングルート
 // import About from '/src/pages/About.vue';
 import NotFound from '/src/pages/NotFound.vue';
+import Blog from '/src/pages/Blog.vue';
 
 const routes = [
     {
@@ -21,6 +22,16 @@ const routes = [
         path: '/',
         name: 'Index',
         component: Index,       
+    },
+    {
+        path: '/blog/:id', //:idでパラメータを設定することができる
+        name: 'BlogId',
+        component: Blog,
+    },
+    {
+        path: '/blog',
+        name: 'Blog',
+        component: Blog,
     },
     {
         path: '/:pathMatch(.*)*', // 存在しないアドレスにマッチするような設定
