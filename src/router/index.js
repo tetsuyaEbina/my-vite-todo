@@ -28,11 +28,11 @@ const routes = [
         name: 'BlogId',
         component: Blog,
     },
-    {
-        path: '/blog',
-        name: 'Blog',
-        component: Blog,
-    },
+    // {
+    //     path: '/blog',
+    //     name: 'Blog',
+    //     component: Blog,
+    // },
     {
         path: '/:pathMatch(.*)*', // 存在しないアドレスにマッチするような設定
         name: 'NotFound',
